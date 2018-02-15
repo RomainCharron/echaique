@@ -46,19 +46,78 @@ public class Echiquier {
         
         // Jouer
         {
+            // mise à zero de tous le paramétre
+            int indC = 0;
+            clearCASE();
+            Cavalier leCavalier = new Cavalier(null);
+            int xCavalier = 0 , zCavalier = 0; // permet de connaitre la position de la piece
+            table[xCavalier][zCavalier].laPiece = leCavalier;// on place la piece
+            listCoups = new ArrayList();
+            boolean isplay;
             do {
-                listCoups = new ArrayList();
+                
+                for (int indM = 0; indM < table[xCavalier][zCavalier].laPiece.getMovementList().size(); indM++) {
+                    playsCoupsLstCoups(xCavalier,zCavalier,indM);
+                }
+                do {                    
+                    isplay = false;
+                    
+                    
+                    
+                } while (isplay);
+                    
+                    
+                
+                listCoups.add(indC);// Crée un coups
                 
                 
-                listCoups.add(0);// Crée un coups
-                
-            } while (true);
+                indC++;
+            } while (indC < 64);
         }
         
         
         
     }
-    static private boolean ClearCASE(){
+    /**
+     * xPiece zPiece represent la position de la pice à déplacer
+     * @param xPiece 
+     * @param zPiece
+     * @param leMovement
+     * @return 
+     */
+    static private boolean testCoups(int xPiece,int zPiece,int idMovementPiece){
+        Movement leMovement = table[xPiece][zPiece].laPiece.getMovementList().get(idMovementPiece);
+        if(table[leMovement.vectorX][leMovement.vectorZ].laPiece == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    /**
+     * xPiece zPiece represent la position de la pice à déplacer
+     * @param xPiece 
+     * @param zPiece
+     * @param leMovement
+     * @return 
+     */
+    static private boolean playsCoupsLstCoups(int xPiece,int zPiece,int idMovementPiece){
+        if(testCoups(xPiece, zPiece, idMovementPiece))
+        {
+            Movement leMovement = table[xPiece][zPiece].laPiece.getMovementList().get(idMovementPiece);
+            table[leMovement.vectorX][leMovement.vectorZ].laPiece = table[xPiece][zPiece].laPiece;
+            table[xPiece][zPiece].laPiece = new VoidPiece();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    static private boolean clearCASE(){
         boolean isbreak = false;
         
         for (int i = 0; i < 8; i++) {
@@ -71,7 +130,8 @@ public class Echiquier {
         return !isbreak ;
     }
     
-    static private boolean IsVisitedCASE(){
+    
+    static private boolean isVisitedAllCASE(){
         boolean isbreak = false;
         
         for (int i = 0; i < 8; i++) {

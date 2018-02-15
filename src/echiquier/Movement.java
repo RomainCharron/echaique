@@ -11,12 +11,12 @@ package echiquier;
  */
 public class Movement {
     
-    public int vectorX , vectorY;
+    public int vectorX , vectorZ;
     public Type leType;
 
-    public Movement(int vectorX,int vectorY, Type leType) {
+    public Movement(int vectorX,int vectorZ, Type leType) {
         this.vectorX = vectorX;
-        this.vectorY = vectorY;
+        this.vectorZ = vectorZ;
         this.leType = leType;
     }
     
